@@ -54,7 +54,6 @@ def _ensure_deps():
         "quart": "quart",
         "requests": "requests",
         "rich": "rich",
-        "playwright": "playwright",
     }
     for mod, pkg in pkg_map.items():
         try:
@@ -79,21 +78,21 @@ def _ensure_deps():
     except Exception:
         pass
 
-    # 安装 Playwright 浏览器
+    # 安装 Patchright 浏览器
     try:
-        import playwright
-        pw_browsers = os.path.join(os.path.dirname(playwright.__file__), "driver", "package", ".local-browsers")
+        import patchright
+        pw_browsers = os.path.join(os.path.dirname(patchright.__file__), "driver", "package", ".local-browsers")
         if not os.path.exists(pw_browsers):
-            print("正在安装 Playwright 浏览器...")
+            print("正在安装 Patchright 浏览器...")
             if sys.platform.startswith("linux"):
                 try:
-                    subprocess.check_call([sys.executable, "-m", "playwright", "install", "--with-deps", "chromium"])
+                    subprocess.check_call([sys.executable, "-m", "patchright", "install", "--with-deps", "chromium"])
                 except subprocess.CalledProcessError:
-                    print("⚠️  Playwright --with-deps 安装失败，尝试退回普通安装 chromium...")
-                    subprocess.check_call([sys.executable, "-m", "playwright", "install", "chromium"])
+                    print("⚠️  Patchright --with-deps 安装失败，尝试退回普通安装 chromium...")
+                    subprocess.check_call([sys.executable, "-m", "patchright", "install", "chromium"])
             else:
-                subprocess.check_call([sys.executable, "-m", "playwright", "install", "chromium"])
-            print("✅ Playwright 浏览器安装完成\n")
+                subprocess.check_call([sys.executable, "-m", "patchright", "install", "chromium"])
+            print("✅ Patchright 浏览器安装完成\n")
     except Exception:
         pass
 
